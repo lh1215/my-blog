@@ -1,17 +1,15 @@
-import { Service } from "typedi";
+import {Inject, Service} from "typedi";
+import UserDao from '../dao/UserDao';
 
 @Service()
 export default class UserService {
 
-  async getIntentPredictList(userId: number): Promise<any> {
+  @Inject()
+  private userDao: UserDao;
+
+  async getUserInfoById(userId: string): Promise<any> {
     try {
-      const predictListResponse = {
-        list: [
-            {
-              id: '111', name: '3243243'
-            }
-        ]
-      };
+      const predictListResponse: any = await this.userDao.getUserInfoById(userId);
       return predictListResponse;
     } catch (e) {
       throw e;
