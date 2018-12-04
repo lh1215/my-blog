@@ -1,0 +1,8 @@
+*.iml
+yarn-error.log
+build
+.idea
+.load-git-cache
+node_modules
+package-lock.json
+log
