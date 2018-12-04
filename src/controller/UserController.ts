@@ -14,7 +14,7 @@ export default class UserController {
     @QueryParam('userId') userId: string
   ): Promise<HttpJson> {
     try {
-      const result = this.userService.getUserInfoById(userId);
+      const result = await this.userService.getUserInfoById(userId);
       return new HttpJson(result);
     } catch (e) {
       throw e

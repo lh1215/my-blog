@@ -10,7 +10,11 @@ export default class UserService {
   async getUserInfoById(userId: string): Promise<any> {
     try {
       const predictListResponse: any = await this.userDao.getUserInfoById(userId);
-      return predictListResponse;
+      if (predictListResponse.length > 0) {
+        return predictListResponse[0];
+      } else {
+        return predictListResponse;
+      }
     } catch (e) {
       throw e;
     }
