@@ -10,6 +10,7 @@ export default class UserController {
   @Inject()
   private userService: UserService;
 
+  // 获取用户信息，根据用户id
   @Get('/get-user-info')
   async getIntentPredictList(
     @QueryParam('userId') userId: string
@@ -22,6 +23,7 @@ export default class UserController {
     }
   }
 
+  // 登陆
   @Post('/login')
   async login(
       @Body() body: any,

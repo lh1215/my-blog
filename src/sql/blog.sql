@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 
 CREATE TABLE IF NOT EXISTS `article` (
-    `article_id` VARCHAR(50) NOT NULL COMMENT '文章主键',
+    `article_id` id int auto_increment COMMENT '文章主键',
     `title` VARCHAR(20) NOT NULL COMMENT '标题',
     `author` VARCHAR(50) NOT NULL COMMENT '作者',
     `content` DATE NOT NULL COMMENT '创建时间',
