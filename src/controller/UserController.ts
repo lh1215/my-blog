@@ -1,7 +1,7 @@
 import {Get, JsonController, QueryParam, Post, Body, Ctx} from "routing-controllers";
 import { Inject } from "typedi";
 import UserService from "../service/UserService";
-import { HttpJson } from "../util/httpJson";
+import { HttpJson } from "../util/HttpJson";
 import {Context} from "koa";
 
 @JsonController('/user')
@@ -30,7 +30,7 @@ export default class UserController {
       @Ctx() ctx: Context
   ): Promise<HttpJson> {
     try {
-      const result = await this.userService.getUserInfo(body, ctx);
+      const result = await this.userService.login(body, ctx);
       return new HttpJson(result);
     } catch (e) {
       throw e
