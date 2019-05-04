@@ -1,6 +1,5 @@
 /**
  * 配置mongoose连接mongodb
- * Created by jiayi on 2017/9/13.
  */
 import * as mongoose from 'mongoose';
 /**
@@ -19,7 +18,6 @@ options['useFindAndModify'] = false;
 mongoose.connect(uris, options);
 const db = mongoose.connection;
 db.on('error', function () {
-    console.log('===>>', coreConfig.dbs);
     throw new Error('mongodb连接失败 ' + coreConfig.dbs);
 });
 export default (app: any) => {
