@@ -1,35 +1,30 @@
-import * as mysql from 'mysql';
-
 /**
- * 封装一个数据库连接的方法
- * @param {string} sql SQL语句
- * @param arg SQL语句插入语句的数据
- * @param callback SQL语句的回调
+ * 配置mongoose连接mongodb
+ * Created by jiayi on 2017/9/13.
  */
-export function db(sql: string, arg: any, callback?: any) {
-    // 1.创建连接
-    const config = mysql.createConnection({
-        host: '127.0.0.1', // 数据库地址
-        user: 'root', // 数据库用户
-        password: '123456', // 数据库密码
-        port: 3306, // 端口号
-        database: 'blog' // 使用数据库名字
+import * as mongoose from 'mongoose';
+/**
+ * 引入配置
+ */
+import coreConfig from '../config/config';
+
+const uris = `mongodb://${coreConfig.user}:${coreConfig.psw}@${coreConfig.host}:${coreConfig.dbport}/${coreConfig.dbs}`;
+const options: any = {};
+
+options['useNewUrlParser'] = true;
+options['useCreateIndex'] = true;
+options['useFindAndModify'] = false;
+
+
+mongoose.connect(uris, options);
+const db = mongoose.connection;
+db.on('error', function () {
+    console.log('===>>', coreConfig.dbs);
+    throw new Error('mongodb连接失败 ' + coreConfig.dbs);
+});
+export default (app: any) => {
+    db.once('open', function () {
+        console.log('数据库启动了');
+        app.listen(coreConfig.port, () => console.log('mongodb连接成功' + coreConfig.port));
     });
-
-    return new Promise((resolve, reject) => {
-        try {
-
-            // 2.开始连接数据库
-            config.connect();
-            // 3.封装对数据库的增删改查操作
-            config.query(sql, arg, (err: any, data: any) => {
-                resolve(data);
-            });
-            // 4.关闭数据库
-            config.end();
-
-        } catch (err) {
-            reject(err)
-        }
-    })
-}
+};

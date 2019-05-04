@@ -6,8 +6,9 @@ export class HttpJson {
     data: any;
 
     constructor(data: any = "", retCode: RetCodeEnum = RetCodeEnum.CORRECT, retMsg: string = "") {
+        const res = JSON.stringify(data);
         this.retCode = retCode;
         this.retMsg = retMsg;
-        this.data = data;
+        this.data = JSON.parse(res);
     }
 }
